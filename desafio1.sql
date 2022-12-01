@@ -1,12 +1,25 @@
+DROP DATABASE IF EXISTS SpotifyClone;
+
 CREATE DATABASE IF NOT EXISTS SpotifyClone;
 USE SpotifyClone;
+
+  CREATE TABLE artistas(
+artista_id INT PRIMARY KEY AUTO_INCREMENT,
+artista VARCHAR(50) NOT NULL
+) engine = InnoDB;
+
+CREATE TABLE planos(
+plano_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT ,
+plano VARCHAR(50) NOT NULL,
+valor_plano DECIMAL(5.2) NOT NULL
+) engine = InnoDB;
   
 CREATE TABLE usuarios(
 usuario_id INT PRIMARY KEY AUTO_INCREMENT,
 usuario VARCHAR(50) NOT NULL,
 idade INT NOT NULL,
 plano_id INT NOT NULL,
-FOREIGN KEY (plano_id) REFERENCES planos(plano_id)
+ FOREIGN KEY (plano_id) REFERENCES planos(plano_id)
 ) engine = InnoDB;
 
 CREATE TABLE albuns(
@@ -23,19 +36,6 @@ cancao VARCHAR(50) NOT NULL,
 duracao_segundos INT NOT NULL,
 album_id INT,
 FOREIGN KEY (album_id) REFERENCES albuns(album_id)
-) engine = InnoDB;
-
-
-CREATE TABLE artistas(
-artista_id INT PRIMARY KEY AUTO_INCREMENT,
-artista VARCHAR(50) NOT NULL
-) engine = InnoDB;
-
-
-CREATE TABLE planos(
-plano_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT ,
-plano VARCHAR(50) NOT NULL,
-valor_plano DECIMAL(5.2) NOT NULL
 ) engine = InnoDB;
 
 CREATE TABLE historico(
@@ -55,17 +55,6 @@ CONSTRAINT PRIMARY KEY (usuario_id, artista_id),
   FOREIGN KEY (artista_id) REFERENCES artistas(artista_id)
 ) engine = InnoDB;
 
-
-INSERT INTO albuns ( album, ano_lancamento, artista_id) VALUES 
-('Renaissance', 2022, 1),
-('Jazz', 1978, 2),
-('Hot Space', 1982, 2 ),
-('Falso Brilhante', 1998, 3),
-('Vento de Maio', 2001, 3),
-('QVVJFA?', 2003, 4),
-('Somewhere Far Beyond', 2007, 5),
-('I Put A Spell On You', 2012, 6);
-
 INSERT INTO artistas (artista) VALUES 
 ('Beyoncé'),
 ('Queen'),
@@ -73,6 +62,12 @@ INSERT INTO artistas (artista) VALUES
 ('Baco Exu do Blues'),
 ('Blind Guardian'),
 ('Nina Simone');
+
+INSERT INTO planos (plano, valor_plano) VALUES 
+('gratuito', 0.00),
+('familiar', 7.99),
+('universitário', 5.99),
+('pessoal', 6.99);
 
 INSERT INTO usuarios (usuario, idade, plano_id) VALUES 
 ('Barbara Liskov', 82, 1),
@@ -86,6 +81,16 @@ INSERT INTO usuarios (usuario, idade, plano_id) VALUES
 ('Judith Butler', 45, 3),
 ('Jorge Amado', 58, 3 );
 
+INSERT INTO albuns ( album, ano_lancamento, artista_id) VALUES 
+('Renaissance', 2022, 1),
+('Jazz', 1978, 2),
+('Hot Space', 1982, 2 ),
+('Falso Brilhante', 1998, 3),
+('Vento de Maio', 2001, 3),
+('QVVJFA?', 2003, 4),
+('Somewhere Far Beyond', 2007, 5),
+('I Put A Spell On You', 2012, 6);
+
 INSERT INTO cancoes ( cancao, duracao_segundos, album_id ) VALUES
 ('BREAK MY SOUL', 279, 1 ),
 ('VIRGO’S GROOVE', 369, 1),
@@ -97,28 +102,6 @@ INSERT INTO cancoes ( cancao, duracao_segundos, album_id ) VALUES
 ('Samba em Paris', 267, 6),
 ('The Bard’s Song', 244, 7),
 ('Feeling Good', 100 , 8);
-
-INSERT INTO planos (plano, valor_plano) VALUES 
-('gratuito', 0.00),
-('familiar', 7.99),
-('universitário', 5.99),
-('pessoal', 6.99);
-
-INSERT INTO seguindo_artistas (usuario_id, artista_id) VALUES 
-(1, 1),
-(1, 2),
-(1, 3),
-(2, 1),
-(2, 3),
-(3, 2),
-(4, 4),
-(5, 5),
-(5, 6),
-(6),
-(7, 6),
-(8),
-(9,3),
-(10);
 
 INSERT INTO historico (usuario_id, cancao_id, data_reproducao ) VALUES 
 (1, 8, '2022-02-28 10:45:55' ),
@@ -137,3 +120,19 @@ INSERT INTO historico (usuario_id, cancao_id, data_reproducao ) VALUES
 (8, 4, '2012-03-17 14:56:41'),
 (9, 9, '2022-02-24 21:14:22'),
 (10, 3, '2015-12-13 08:30:22');
+
+INSERT INTO seguindo_artistas (usuario_id, artista_id) VALUES 
+(1,	1),
+(1,	2),
+(1,	3),
+(2,	1),
+(2,	3),
+(3,	2),
+(4,	4),
+(5,	5),
+(5,	6),
+(6,	6),
+(6,	1),
+(7,	6),
+(9,	3),
+(10,2);

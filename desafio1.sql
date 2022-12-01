@@ -11,7 +11,7 @@ artista VARCHAR(50) NOT NULL
 CREATE TABLE planos(
 plano_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT ,
 plano VARCHAR(50) NOT NULL,
-valor_plano DECIMAL(5.2) NOT NULL
+valor_plano DECIMAL(5,2) NOT NULL
 ) engine = InnoDB;
   
 CREATE TABLE usuarios(
